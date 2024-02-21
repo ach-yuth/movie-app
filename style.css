@@ -1,0 +1,59 @@
+.movie {
+  display: flex;
+  justify-content: space-evenly;
+
+  flex-wrap: wrap;
+  gap: 18px;
+}
+img {
+  width: 100%;
+}
+form {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  background-color: rgb(124, 124, 194);
+}
+input {
+  border-radius: 20px;
+  padding: 0.5rem 0 0.5rem 1rem;
+  border: none;
+  color: white;
+}
+input:focus {
+  outline: none;
+  background-color: rgb(71, 71, 80);
+}
+input::placeholder {
+  color: rgb(124, 124, 214);
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.title h3 {
+  margin-top: 0;
+}
+.singleMovie {
+  position: relative;
+  width: 300px;
+  margin-top: 48px;
+  padding: 20px;
+  box-shadow: 0 4px 3px 1px black;
+  overflow: hidden;
+}
+.overview {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: translateY(101%);
+  transition: transform 0.3s ease-in-out;
+  background-color: white;
+  padding: 1.5rem;
+}
+.singleMovie:hover .overview {
+  transform: translateY(0);
+}
