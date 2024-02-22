@@ -1,15 +1,22 @@
 const movies = document.querySelector(".movie");
+const form = document.querySelector("form");
+const input = document.querySelector("input");
 
-fetch(
-  "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=094b5130742d4fcc02f1fcaff43f7ba5"
-)
-  .then((resp) => resp.json())
-  .then((data) => {
-    console.log(data);
-    data.results.forEach((movie) => {
-      const newEl = document.createElement("div");
-      newEl.className = "singleMovie";
-      newEl.innerHTML = `
+const api =
+  "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=094b5130742d4fcc02f1fcaff43f7ba5";
+
+const search_url =
+  'https://api.themoviedb.org/3/search/movie?api_key=094b5130742d4fcc02f1fcaff43f7ba5&query="';
+
+getMovies(api);
+async function getMovies(url) {
+  const resp = await fetch(url);
+  const data = await resp.json();
+  console.log(data);
+  data.results.forEach((movie) => {
+    const newEl = document.createElement("div");
+    newEl.className = "singleMovie";
+    newEl.innerHTML = `
       <img
       src='https://image.tmdb.org/t/p/original${movie.poster_path}'
     />
@@ -22,7 +29,17 @@ fetch(
       ${movie.overview}
     </div>
       `;
-      movies.append(newEl);
-    });
+    movies.append(newEl);
   });
-//   https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc
+}
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const searchTerm = input.value;
+  if (searchTerm && searchTerm !== "") {
+    getMovies(search_url + searchTerm);
+    input.value = "";
+  } else {
+    window.location.reload();
+  }
+});
